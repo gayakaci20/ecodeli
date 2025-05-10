@@ -1,5 +1,8 @@
 # 🌱 ecodeli – Livraison Écologique
-![ecodeli logo](/public/LOGO_.png)
+<div style="display: flex; align-items: center; gap: 1rem">
+  <img src="/public/LOGO_.png" alt="ecodeli logo" width="50" height="50" />
+  <h1 style="font-family: 'Poppins', sans-serif;"><b>ecodeli</b></h1>
+</div>
 
 **ecodeli** est une plateforme de livraison collaborative et écologique 🚚♻️ qui connecte les expéditeurs à des transporteurs effectuant déjà des trajets similaires. Résultat : une **réduction de l’empreinte carbone** 🌍 et une logistique plus **intelligente et solidaire**.
 
