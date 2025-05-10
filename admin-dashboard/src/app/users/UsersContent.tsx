@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { format } from 'date-fns';
-import EditUserModal from '@/components/EditUserModal';
+import EditUserModal from '../../components/EditUserModal';
 
 interface User {
   id: string;
