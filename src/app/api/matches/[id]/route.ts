@@ -1,13 +1,19 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 
-// Updated type definition for the route handler
+interface RouteContext {
+  params: Promise<{
+    id: string;
+  }>;
+}
+
 export async function DELETE(
-  request: Request,
-  context: { params: { id: string } }
+  request: NextRequest,
+  { params: paramsPromise }: RouteContext
 ) {
   try {
-    const id = context.params.id;
+    const params = await paramsPromise;
+    const id = params.id;
 
     // Check if match exists
     const existingMatch = await prisma.match.findUnique({
