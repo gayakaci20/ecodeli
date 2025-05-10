@@ -1,27 +1,6 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 
-type PackageWithUser = {
-  id: string;
-  title: string;
-  status: string;
-  createdAt: Date;
-  user: {
-    name: string | null;
-    email: string;
-  };
-};
-
-type RideWithDriver = {
-  id: string;
-  status: string;
-  createdAt: Date;
-  driver: {
-    name: string | null;
-    email: string;
-  };
-};
-
 export async function GET() {
   try {
     // Fetch recent packages
@@ -50,7 +29,7 @@ export async function GET() {
         id: true,
         status: true,
         createdAt: true,
-        driver: {
+        user: {
           select: {
             name: true,
             email: true,
@@ -60,7 +39,7 @@ export async function GET() {
     });
 
     // Transform packages into activities
-    const packageActivities = packages.map((pkg: PackageWithUser) => ({
+    const packageActivities = packages.map((pkg) => ({
       id: `pkg-${pkg.id}`,
       type: 'PACKAGE',
       title: pkg.title,
@@ -71,11 +50,11 @@ export async function GET() {
     }));
 
     // Transform rides into activities
-    const rideActivities = rides.map((ride: RideWithDriver) => ({
+    const rideActivities = rides.map((ride) => ({
       id: `ride-${ride.id}`,
       type: 'RIDE',
       title: 'New Ride',
-      description: `Ride by ${ride.driver.name || ride.driver.email}`,
+      description: `Ride by ${ride.user.name || ride.user.email}`,
       timestamp: ride.createdAt,
       status: ride.status,
       entityId: ride.id,
