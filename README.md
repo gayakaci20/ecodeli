@@ -1,5 +1,5 @@
 # 🌱 ecodeli – Livraison Écologique
-![ecodeli logo](LOGO_.png)
+![ecodeli logo](/public/LOGO_.png)
 
 **ecodeli** est une plateforme de livraison collaborative et écologique 🚚♻️ qui connecte les expéditeurs à des transporteurs effectuant déjà des trajets similaires. Résultat : une **réduction de l’empreinte carbone** 🌍 et une logistique plus **intelligente et solidaire**.
 
