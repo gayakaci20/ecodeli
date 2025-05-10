@@ -1,0 +1,44 @@
+import { NextRequest, NextResponse } from 'next/server';
+import { prisma } from '@/lib/prisma';
+
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  try {
+    const id = params.id;
+
+    // Check if package exists
+    const existingPackage = await prisma.package.findUnique({
+      where: { id },
+      include: {
+        matches: true,
+      },
+    });
+
+    if (!existingPackage) {
+      return NextResponse.json(
+        { error: 'Package not found' },
+        { status: 404 }
+      );
+    }
+
+    // Delete the package and all related matches
+    await prisma.$transaction([
+      prisma.match.deleteMany({
+        where: { packageId: id },
+      }),
+      prisma.package.delete({
+        where: { id },
+      }),
+    ]);
+
+    return NextResponse.json({ message: 'Package deleted successfully' });
+  } catch (error) {
+    console.error('Package deletion error:', error);
+    return NextResponse.json(
+      { error: 'Failed to delete package' },
+      { status: 500 }
+    );
+  }
+} 

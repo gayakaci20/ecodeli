@@ -1,0 +1,184 @@
+import { NextRequest, NextResponse } from 'next/server';
+import { prisma } from '@/lib/prisma';
+import { PackageStatus, Role } from '@/generated/prisma';
+
+export async function GET(request: NextRequest) {
+  try {
+    const searchParams = request.nextUrl.searchParams;
+    const page = parseInt(searchParams.get('page') || '1');
+    const limit = parseInt(searchParams.get('limit') || '10');
+    const search = searchParams.get('search');
+    const status = searchParams.get('status') as PackageStatus | null;
+
+    // Calculate skip value for pagination
+    const skip = (page - 1) * limit;
+
+    // Construct the where clause based on filters
+    const where: any = {};
+    
+    // Add search filter if provided
+    if (search) {
+      where.OR = [
+        { title: { contains: search } },
+        { pickupAddress: { contains: search } },
+        { deliveryAddress: { contains: search } },
+        { user: {
+          OR: [
+            { name: { contains: search } },
+            { email: { contains: search } },
+          ],
+        }},
+      ];
+    }
+    
+    // Add status filter if provided
+    if (status) {
+      where.status = status;
+    }
+
+    // Fetch packages with pagination
+    const [packages, total] = await Promise.all([
+      prisma.package.findMany({
+        where,
+        include: {
+          user: {
+            select: {
+              name: true,
+              email: true,
+            },
+          },
+        },
+        orderBy: {
+          createdAt: 'desc',
+        },
+        skip,
+        take: limit,
+      }),
+      prisma.package.count({ where }),
+    ]);
+
+    console.log('Packages fetched in GET /api/packages:', JSON.stringify(packages, null, 2));
+
+    return NextResponse.json({
+      packages,
+      total,
+      page,
+      totalPages: Math.ceil(total / limit),
+    });
+  } catch (error) {
+    console.error('Packages fetch error:', error);
+    return NextResponse.json(
+      { error: 'Failed to fetch packages' },
+      { status: 500 }
+    );
+  }
+}
+
+export async function POST(request: NextRequest) {
+  try {
+    const body = await request.json();
+    console.log('Received package data in POST /api/packages:', JSON.stringify(body, null, 2));
+
+    // Check if we're in development mode
+    const isDev = process.env.NODE_ENV === 'development';
+
+    // In development, allow creation without user connection
+    let newPackage;
+    if (isDev) {
+      // Try to create with user connection first
+      try {
+        newPackage = await prisma.package.create({
+          data: {
+            title: body.title,
+            description: body.description,
+            weight: body.weight ? parseFloat(body.weight) : null,
+            dimensions: body.dimensions,
+            pickupAddress: body.pickupAddress,
+            deliveryAddress: body.deliveryAddress,
+            pickupLat: body.pickupLat ? parseFloat(body.pickupLat) : null,
+            pickupLng: body.pickupLng ? parseFloat(body.pickupLng) : null,
+            deliveryLat: body.deliveryLat ? parseFloat(body.deliveryLat) : null,
+            deliveryLng: body.deliveryLng ? parseFloat(body.deliveryLng) : null,
+            imageUrl: body.imageUrl,
+            userId: body.userId,
+            status: 'PENDING' as PackageStatus,
+          },
+        });
+      } catch (err: any) {
+        // If there's a foreign key error, create without user connection
+        if (err.code === 'P2003') {
+          console.log('Creating package without user connection in dev mode');
+          
+          // Find a valid user or create one if needed
+          const anyUser = await prisma.user.findFirst();
+          
+          let userId;
+          if (anyUser) {
+            // Use an existing user
+            userId = anyUser.id;
+          } else {
+            // Create a dummy user for development
+            const newUser = await prisma.user.create({
+              data: {
+                name: 'Dev User',
+                email: 'dev@example.com',
+                password: 'dummy-password', // In a real app, you'd hash this
+                role: 'SENDER' as Role,
+              },
+            });
+            userId = newUser.id;
+          }
+          
+          // Create with the valid user id
+          newPackage = await prisma.package.create({
+            data: {
+              title: body.title,
+              description: body.description,
+              weight: body.weight ? parseFloat(body.weight) : null,
+              dimensions: body.dimensions,
+              pickupAddress: body.pickupAddress,
+              deliveryAddress: body.deliveryAddress,
+              pickupLat: body.pickupLat ? parseFloat(body.pickupLat) : null,
+              pickupLng: body.pickupLng ? parseFloat(body.pickupLng) : null,
+              deliveryLat: body.deliveryLat ? parseFloat(body.deliveryLat) : null,
+              deliveryLng: body.deliveryLng ? parseFloat(body.deliveryLng) : null,
+              imageUrl: body.imageUrl,
+              userId: userId,
+              status: 'PENDING' as PackageStatus,
+            },
+          });
+        } else {
+          // If it's a different error, rethrow it
+          throw err;
+        }
+      }
+    } else {
+      // In production, require the user connection
+      newPackage = await prisma.package.create({
+        data: {
+          title: body.title,
+          description: body.description,
+          weight: body.weight ? parseFloat(body.weight) : null,
+          dimensions: body.dimensions,
+          pickupAddress: body.pickupAddress,
+          deliveryAddress: body.deliveryAddress,
+          pickupLat: body.pickupLat ? parseFloat(body.pickupLat) : null,
+          pickupLng: body.pickupLng ? parseFloat(body.pickupLng) : null,
+          deliveryLat: body.deliveryLat ? parseFloat(body.deliveryLat) : null,
+          deliveryLng: body.deliveryLng ? parseFloat(body.deliveryLng) : null,
+          imageUrl: body.imageUrl,
+          userId: body.userId,
+          status: 'PENDING' as PackageStatus,
+        },
+      });
+    }
+
+    return NextResponse.json(newPackage, { status: 201 });
+  } catch (error: any) {
+    console.error('Package creation error:', error);
+    return NextResponse.json(
+      { error: 'Failed to create package', details: error?.message || 'Unknown error' },
+      { status: 500 }
+    );
+  }
+} 
