@@ -1,12 +1,15 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 
 export async function POST(
-  request: NextRequest,
-  { params }: { params: { id: string } }
+  request: Request
 ) {
   try {
-    const id = params.id;
+    // Get ID from URL path directly
+    const url = new URL(request.url);
+    const pathParts = url.pathname.split('/');
+    // The ID is the second-to-last segment in /api/payments/[id]/refund
+    const id = pathParts[pathParts.length - 2];
 
     // Check if payment exists and is completed
     const existingPayment = await prisma.payment.findUnique({
@@ -33,7 +36,6 @@ export async function POST(
       where: { id },
       data: {
         status: 'REFUNDED',
-        refundedAt: new Date(),
       },
       include: {
         user: {
