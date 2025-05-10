@@ -91,6 +91,7 @@ model User {
   receivedMessages Message[]      @relation("ReceiverMessages")
   payments         Payment[]
   notifications    Notification[]
+  proposedMatches  Match[]        @relation("ProposedMatches")
 
   @@map("users")
 }
@@ -198,7 +199,8 @@ model Match {
   rideId           String      @map("ride_id")
   ride             Ride        @relation(fields: [rideId], references: [id], onDelete: Cascade)
   status           MatchStatus @default(PROPOSED)
-  proposedByUserId String?     @map("proposed_by_user_id") // ID of user (sender or carrier) who proposed
+  proposedByUserId String?     @map("proposed_by_user_id")
+  proposer         User?       @relation("ProposedMatches", fields: [proposedByUserId], references: [id], onDelete: SetNull)
   price            Float? // Agreed price for this match
   createdAt        DateTime    @default(now()) @map("created_at")
   updatedAt        DateTime    @updatedAt @map("updated_at")
@@ -229,7 +231,7 @@ model Payment {
   userId          String        @map("user_id") // The user making or receiving the payment (context dependent)
   user            User          @relation(fields: [userId], references: [id], onDelete: Cascade)
   matchId         String        @unique @map("match_id") // Each payment is tied to one match
-  match           Match         @relation(fields: [matchId], references: [id])
+  match           Match         @relation(fields: [matchId], references: [id], onDelete: Cascade)
   amount          Float // Amount in a standard currency unit
   currency        String        @default("EUR") // Or your default currency
   status          PaymentStatus @default(PENDING)

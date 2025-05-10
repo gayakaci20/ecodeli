@@ -1715,6 +1715,7 @@ export namespace Prisma {
     receivedMessages: number
     payments: number
     notifications: number
+    proposedMatches: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1726,6 +1727,7 @@ export namespace Prisma {
     receivedMessages?: boolean | UserCountOutputTypeCountReceivedMessagesArgs
     payments?: boolean | UserCountOutputTypeCountPaymentsArgs
     notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
+    proposedMatches?: boolean | UserCountOutputTypeCountProposedMatchesArgs
   }
 
   // Custom InputTypes
@@ -1793,6 +1795,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountNotificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: NotificationWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountProposedMatchesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MatchWhereInput
   }
 
 
@@ -2106,6 +2115,7 @@ export namespace Prisma {
     receivedMessages?: boolean | User$receivedMessagesArgs<ExtArgs>
     payments?: boolean | User$paymentsArgs<ExtArgs>
     notifications?: boolean | User$notificationsArgs<ExtArgs>
+    proposedMatches?: boolean | User$proposedMatchesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -2138,6 +2148,7 @@ export namespace Prisma {
     receivedMessages?: boolean | User$receivedMessagesArgs<ExtArgs>
     payments?: boolean | User$paymentsArgs<ExtArgs>
     notifications?: boolean | User$notificationsArgs<ExtArgs>
+    proposedMatches?: boolean | User$proposedMatchesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -2152,6 +2163,7 @@ export namespace Prisma {
       receivedMessages: Prisma.$MessagePayload<ExtArgs>[]
       payments: Prisma.$PaymentPayload<ExtArgs>[]
       notifications: Prisma.$NotificationPayload<ExtArgs>[]
+      proposedMatches: Prisma.$MatchPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2516,6 +2528,7 @@ export namespace Prisma {
     receivedMessages<T extends User$receivedMessagesArgs<ExtArgs> = {}>(args?: Subset<T, User$receivedMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     payments<T extends User$paymentsArgs<ExtArgs> = {}>(args?: Subset<T, User$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     notifications<T extends User$notificationsArgs<ExtArgs> = {}>(args?: Subset<T, User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    proposedMatches<T extends User$proposedMatchesArgs<ExtArgs> = {}>(args?: Subset<T, User$proposedMatchesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MatchPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3091,6 +3104,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: NotificationScalarFieldEnum | NotificationScalarFieldEnum[]
+  }
+
+  /**
+   * User.proposedMatches
+   */
+  export type User$proposedMatchesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Match
+     */
+    select?: MatchSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Match
+     */
+    omit?: MatchOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MatchInclude<ExtArgs> | null
+    where?: MatchWhereInput
+    orderBy?: MatchOrderByWithRelationInput | MatchOrderByWithRelationInput[]
+    cursor?: MatchWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MatchScalarFieldEnum | MatchScalarFieldEnum[]
   }
 
   /**
@@ -8492,6 +8529,7 @@ export namespace Prisma {
     updatedAt?: boolean
     package?: boolean | PackageDefaultArgs<ExtArgs>
     ride?: boolean | RideDefaultArgs<ExtArgs>
+    proposer?: boolean | Match$proposerArgs<ExtArgs>
     payment?: boolean | Match$paymentArgs<ExtArgs>
   }, ExtArgs["result"]["match"]>
 
@@ -8512,6 +8550,7 @@ export namespace Prisma {
   export type MatchInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     package?: boolean | PackageDefaultArgs<ExtArgs>
     ride?: boolean | RideDefaultArgs<ExtArgs>
+    proposer?: boolean | Match$proposerArgs<ExtArgs>
     payment?: boolean | Match$paymentArgs<ExtArgs>
   }
 
@@ -8520,6 +8559,7 @@ export namespace Prisma {
     objects: {
       package: Prisma.$PackagePayload<ExtArgs>
       ride: Prisma.$RidePayload<ExtArgs>
+      proposer: Prisma.$UserPayload<ExtArgs> | null
       payment: Prisma.$PaymentPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -8873,6 +8913,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     package<T extends PackageDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PackageDefaultArgs<ExtArgs>>): Prisma__PackageClient<$Result.GetResult<Prisma.$PackagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     ride<T extends RideDefaultArgs<ExtArgs> = {}>(args?: Subset<T, RideDefaultArgs<ExtArgs>>): Prisma__RideClient<$Result.GetResult<Prisma.$RidePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    proposer<T extends Match$proposerArgs<ExtArgs> = {}>(args?: Subset<T, Match$proposerArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     payment<T extends Match$paymentArgs<ExtArgs> = {}>(args?: Subset<T, Match$paymentArgs<ExtArgs>>): Prisma__PaymentClient<$Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -9251,6 +9292,25 @@ export namespace Prisma {
      * Limit how many Matches to delete.
      */
     limit?: number
+  }
+
+  /**
+   * Match.proposer
+   */
+  export type Match$proposerArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
   }
 
   /**
@@ -12679,6 +12739,7 @@ export namespace Prisma {
     receivedMessages?: MessageListRelationFilter
     payments?: PaymentListRelationFilter
     notifications?: NotificationListRelationFilter
+    proposedMatches?: MatchListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -12704,6 +12765,7 @@ export namespace Prisma {
     receivedMessages?: MessageOrderByRelationAggregateInput
     payments?: PaymentOrderByRelationAggregateInput
     notifications?: NotificationOrderByRelationAggregateInput
+    proposedMatches?: MatchOrderByRelationAggregateInput
     _relevance?: UserOrderByRelevanceInput
   }
 
@@ -12733,6 +12795,7 @@ export namespace Prisma {
     receivedMessages?: MessageListRelationFilter
     payments?: PaymentListRelationFilter
     notifications?: NotificationListRelationFilter
+    proposedMatches?: MatchListRelationFilter
   }, "id" | "email" | "phoneNumber">
 
   export type UserOrderByWithAggregationInput = {
@@ -13240,6 +13303,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Match"> | Date | string
     package?: XOR<PackageScalarRelationFilter, PackageWhereInput>
     ride?: XOR<RideScalarRelationFilter, RideWhereInput>
+    proposer?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     payment?: XOR<PaymentNullableScalarRelationFilter, PaymentWhereInput> | null
   }
 
@@ -13254,6 +13318,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     package?: PackageOrderByWithRelationInput
     ride?: RideOrderByWithRelationInput
+    proposer?: UserOrderByWithRelationInput
     payment?: PaymentOrderByWithRelationInput
     _relevance?: MatchOrderByRelevanceInput
   }
@@ -13273,6 +13338,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Match"> | Date | string
     package?: XOR<PackageScalarRelationFilter, PackageWhereInput>
     ride?: XOR<RideScalarRelationFilter, RideWhereInput>
+    proposer?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     payment?: XOR<PaymentNullableScalarRelationFilter, PaymentWhereInput> | null
   }, "id" | "packageId_rideId">
 
@@ -13565,6 +13631,7 @@ export namespace Prisma {
     receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
     payments?: PaymentCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    proposedMatches?: MatchCreateNestedManyWithoutProposerInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -13590,6 +13657,7 @@ export namespace Prisma {
     receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
     payments?: PaymentUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    proposedMatches?: MatchUncheckedCreateNestedManyWithoutProposerInput
   }
 
   export type UserUpdateInput = {
@@ -13615,6 +13683,7 @@ export namespace Prisma {
     receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
     payments?: PaymentUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    proposedMatches?: MatchUpdateManyWithoutProposerNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -13640,6 +13709,7 @@ export namespace Prisma {
     receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    proposedMatches?: MatchUncheckedUpdateManyWithoutProposerNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -14204,12 +14274,12 @@ export namespace Prisma {
   export type MatchCreateInput = {
     id?: string
     status?: $Enums.MatchStatus
-    proposedByUserId?: string | null
     price?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     package: PackageCreateNestedOneWithoutMatchesInput
     ride: RideCreateNestedOneWithoutMatchesInput
+    proposer?: UserCreateNestedOneWithoutProposedMatchesInput
     payment?: PaymentCreateNestedOneWithoutMatchInput
   }
 
@@ -14228,12 +14298,12 @@ export namespace Prisma {
   export type MatchUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumMatchStatusFieldUpdateOperationsInput | $Enums.MatchStatus
-    proposedByUserId?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     package?: PackageUpdateOneRequiredWithoutMatchesNestedInput
     ride?: RideUpdateOneRequiredWithoutMatchesNestedInput
+    proposer?: UserUpdateOneWithoutProposedMatchesNestedInput
     payment?: PaymentUpdateOneWithoutMatchNestedInput
   }
 
@@ -14263,7 +14333,6 @@ export namespace Prisma {
   export type MatchUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumMatchStatusFieldUpdateOperationsInput | $Enums.MatchStatus
-    proposedByUserId?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14633,6 +14702,12 @@ export namespace Prisma {
     none?: NotificationWhereInput
   }
 
+  export type MatchListRelationFilter = {
+    every?: MatchWhereInput
+    some?: MatchWhereInput
+    none?: MatchWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -14663,6 +14738,10 @@ export namespace Prisma {
   }
 
   export type NotificationOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type MatchOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -14975,16 +15054,6 @@ export namespace Prisma {
     not?: NestedEnumPackageStatusFilter<$PrismaModel> | $Enums.PackageStatus
   }
 
-  export type MatchListRelationFilter = {
-    every?: MatchWhereInput
-    some?: MatchWhereInput
-    none?: MatchWhereInput
-  }
-
-  export type MatchOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
   export type PackageOrderByRelevanceInput = {
     fields: PackageOrderByRelevanceFieldEnum | PackageOrderByRelevanceFieldEnum[]
     sort: SortOrder
@@ -15252,6 +15321,11 @@ export namespace Prisma {
   export type RideScalarRelationFilter = {
     is?: RideWhereInput
     isNot?: RideWhereInput
+  }
+
+  export type UserNullableScalarRelationFilter = {
+    is?: UserWhereInput | null
+    isNot?: UserWhereInput | null
   }
 
   export type PaymentNullableScalarRelationFilter = {
@@ -15550,6 +15624,13 @@ export namespace Prisma {
     connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
   }
 
+  export type MatchCreateNestedManyWithoutProposerInput = {
+    create?: XOR<MatchCreateWithoutProposerInput, MatchUncheckedCreateWithoutProposerInput> | MatchCreateWithoutProposerInput[] | MatchUncheckedCreateWithoutProposerInput[]
+    connectOrCreate?: MatchCreateOrConnectWithoutProposerInput | MatchCreateOrConnectWithoutProposerInput[]
+    createMany?: MatchCreateManyProposerInputEnvelope
+    connect?: MatchWhereUniqueInput | MatchWhereUniqueInput[]
+  }
+
   export type AccountUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -15604,6 +15685,13 @@ export namespace Prisma {
     connectOrCreate?: NotificationCreateOrConnectWithoutUserInput | NotificationCreateOrConnectWithoutUserInput[]
     createMany?: NotificationCreateManyUserInputEnvelope
     connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+  }
+
+  export type MatchUncheckedCreateNestedManyWithoutProposerInput = {
+    create?: XOR<MatchCreateWithoutProposerInput, MatchUncheckedCreateWithoutProposerInput> | MatchCreateWithoutProposerInput[] | MatchUncheckedCreateWithoutProposerInput[]
+    connectOrCreate?: MatchCreateOrConnectWithoutProposerInput | MatchCreateOrConnectWithoutProposerInput[]
+    createMany?: MatchCreateManyProposerInputEnvelope
+    connect?: MatchWhereUniqueInput | MatchWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -15742,6 +15830,20 @@ export namespace Prisma {
     deleteMany?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
   }
 
+  export type MatchUpdateManyWithoutProposerNestedInput = {
+    create?: XOR<MatchCreateWithoutProposerInput, MatchUncheckedCreateWithoutProposerInput> | MatchCreateWithoutProposerInput[] | MatchUncheckedCreateWithoutProposerInput[]
+    connectOrCreate?: MatchCreateOrConnectWithoutProposerInput | MatchCreateOrConnectWithoutProposerInput[]
+    upsert?: MatchUpsertWithWhereUniqueWithoutProposerInput | MatchUpsertWithWhereUniqueWithoutProposerInput[]
+    createMany?: MatchCreateManyProposerInputEnvelope
+    set?: MatchWhereUniqueInput | MatchWhereUniqueInput[]
+    disconnect?: MatchWhereUniqueInput | MatchWhereUniqueInput[]
+    delete?: MatchWhereUniqueInput | MatchWhereUniqueInput[]
+    connect?: MatchWhereUniqueInput | MatchWhereUniqueInput[]
+    update?: MatchUpdateWithWhereUniqueWithoutProposerInput | MatchUpdateWithWhereUniqueWithoutProposerInput[]
+    updateMany?: MatchUpdateManyWithWhereWithoutProposerInput | MatchUpdateManyWithWhereWithoutProposerInput[]
+    deleteMany?: MatchScalarWhereInput | MatchScalarWhereInput[]
+  }
+
   export type AccountUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -15852,6 +15954,20 @@ export namespace Prisma {
     update?: NotificationUpdateWithWhereUniqueWithoutUserInput | NotificationUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: NotificationUpdateManyWithWhereWithoutUserInput | NotificationUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
+  }
+
+  export type MatchUncheckedUpdateManyWithoutProposerNestedInput = {
+    create?: XOR<MatchCreateWithoutProposerInput, MatchUncheckedCreateWithoutProposerInput> | MatchCreateWithoutProposerInput[] | MatchUncheckedCreateWithoutProposerInput[]
+    connectOrCreate?: MatchCreateOrConnectWithoutProposerInput | MatchCreateOrConnectWithoutProposerInput[]
+    upsert?: MatchUpsertWithWhereUniqueWithoutProposerInput | MatchUpsertWithWhereUniqueWithoutProposerInput[]
+    createMany?: MatchCreateManyProposerInputEnvelope
+    set?: MatchWhereUniqueInput | MatchWhereUniqueInput[]
+    disconnect?: MatchWhereUniqueInput | MatchWhereUniqueInput[]
+    delete?: MatchWhereUniqueInput | MatchWhereUniqueInput[]
+    connect?: MatchWhereUniqueInput | MatchWhereUniqueInput[]
+    update?: MatchUpdateWithWhereUniqueWithoutProposerInput | MatchUpdateWithWhereUniqueWithoutProposerInput[]
+    updateMany?: MatchUpdateManyWithWhereWithoutProposerInput | MatchUpdateManyWithWhereWithoutProposerInput[]
+    deleteMany?: MatchScalarWhereInput | MatchScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutAccountsInput = {
@@ -16038,6 +16154,12 @@ export namespace Prisma {
     connect?: RideWhereUniqueInput
   }
 
+  export type UserCreateNestedOneWithoutProposedMatchesInput = {
+    create?: XOR<UserCreateWithoutProposedMatchesInput, UserUncheckedCreateWithoutProposedMatchesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutProposedMatchesInput
+    connect?: UserWhereUniqueInput
+  }
+
   export type PaymentCreateNestedOneWithoutMatchInput = {
     create?: XOR<PaymentCreateWithoutMatchInput, PaymentUncheckedCreateWithoutMatchInput>
     connectOrCreate?: PaymentCreateOrConnectWithoutMatchInput
@@ -16068,6 +16190,16 @@ export namespace Prisma {
     upsert?: RideUpsertWithoutMatchesInput
     connect?: RideWhereUniqueInput
     update?: XOR<XOR<RideUpdateToOneWithWhereWithoutMatchesInput, RideUpdateWithoutMatchesInput>, RideUncheckedUpdateWithoutMatchesInput>
+  }
+
+  export type UserUpdateOneWithoutProposedMatchesNestedInput = {
+    create?: XOR<UserCreateWithoutProposedMatchesInput, UserUncheckedCreateWithoutProposedMatchesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutProposedMatchesInput
+    upsert?: UserUpsertWithoutProposedMatchesInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutProposedMatchesInput, UserUpdateWithoutProposedMatchesInput>, UserUncheckedUpdateWithoutProposedMatchesInput>
   }
 
   export type PaymentUpdateOneWithoutMatchNestedInput = {
@@ -16785,6 +16917,38 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type MatchCreateWithoutProposerInput = {
+    id?: string
+    status?: $Enums.MatchStatus
+    price?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    package: PackageCreateNestedOneWithoutMatchesInput
+    ride: RideCreateNestedOneWithoutMatchesInput
+    payment?: PaymentCreateNestedOneWithoutMatchInput
+  }
+
+  export type MatchUncheckedCreateWithoutProposerInput = {
+    id?: string
+    packageId: string
+    rideId: string
+    status?: $Enums.MatchStatus
+    price?: number | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    payment?: PaymentUncheckedCreateNestedOneWithoutMatchInput
+  }
+
+  export type MatchCreateOrConnectWithoutProposerInput = {
+    where: MatchWhereUniqueInput
+    create: XOR<MatchCreateWithoutProposerInput, MatchUncheckedCreateWithoutProposerInput>
+  }
+
+  export type MatchCreateManyProposerInputEnvelope = {
+    data: MatchCreateManyProposerInput | MatchCreateManyProposerInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AccountUpsertWithWhereUniqueWithoutUserInput = {
     where: AccountWhereUniqueInput
     update: XOR<AccountUpdateWithoutUserInput, AccountUncheckedUpdateWithoutUserInput>
@@ -17036,6 +17200,36 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Notification"> | Date | string
   }
 
+  export type MatchUpsertWithWhereUniqueWithoutProposerInput = {
+    where: MatchWhereUniqueInput
+    update: XOR<MatchUpdateWithoutProposerInput, MatchUncheckedUpdateWithoutProposerInput>
+    create: XOR<MatchCreateWithoutProposerInput, MatchUncheckedCreateWithoutProposerInput>
+  }
+
+  export type MatchUpdateWithWhereUniqueWithoutProposerInput = {
+    where: MatchWhereUniqueInput
+    data: XOR<MatchUpdateWithoutProposerInput, MatchUncheckedUpdateWithoutProposerInput>
+  }
+
+  export type MatchUpdateManyWithWhereWithoutProposerInput = {
+    where: MatchScalarWhereInput
+    data: XOR<MatchUpdateManyMutationInput, MatchUncheckedUpdateManyWithoutProposerInput>
+  }
+
+  export type MatchScalarWhereInput = {
+    AND?: MatchScalarWhereInput | MatchScalarWhereInput[]
+    OR?: MatchScalarWhereInput[]
+    NOT?: MatchScalarWhereInput | MatchScalarWhereInput[]
+    id?: StringFilter<"Match"> | string
+    packageId?: StringFilter<"Match"> | string
+    rideId?: StringFilter<"Match"> | string
+    status?: EnumMatchStatusFilter<"Match"> | $Enums.MatchStatus
+    proposedByUserId?: StringNullableFilter<"Match"> | string | null
+    price?: FloatNullableFilter<"Match"> | number | null
+    createdAt?: DateTimeFilter<"Match"> | Date | string
+    updatedAt?: DateTimeFilter<"Match"> | Date | string
+  }
+
   export type UserCreateWithoutAccountsInput = {
     id?: string
     email: string
@@ -17058,6 +17252,7 @@ export namespace Prisma {
     receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
     payments?: PaymentCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    proposedMatches?: MatchCreateNestedManyWithoutProposerInput
   }
 
   export type UserUncheckedCreateWithoutAccountsInput = {
@@ -17082,6 +17277,7 @@ export namespace Prisma {
     receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
     payments?: PaymentUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    proposedMatches?: MatchUncheckedCreateNestedManyWithoutProposerInput
   }
 
   export type UserCreateOrConnectWithoutAccountsInput = {
@@ -17122,6 +17318,7 @@ export namespace Prisma {
     receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
     payments?: PaymentUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    proposedMatches?: MatchUpdateManyWithoutProposerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -17146,6 +17343,7 @@ export namespace Prisma {
     receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    proposedMatches?: MatchUncheckedUpdateManyWithoutProposerNestedInput
   }
 
   export type UserCreateWithoutSessionsInput = {
@@ -17170,6 +17368,7 @@ export namespace Prisma {
     receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
     payments?: PaymentCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    proposedMatches?: MatchCreateNestedManyWithoutProposerInput
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
@@ -17194,6 +17393,7 @@ export namespace Prisma {
     receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
     payments?: PaymentUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    proposedMatches?: MatchUncheckedCreateNestedManyWithoutProposerInput
   }
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -17234,6 +17434,7 @@ export namespace Prisma {
     receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
     payments?: PaymentUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    proposedMatches?: MatchUpdateManyWithoutProposerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -17258,6 +17459,7 @@ export namespace Prisma {
     receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    proposedMatches?: MatchUncheckedUpdateManyWithoutProposerNestedInput
   }
 
   export type UserCreateWithoutPackagesInput = {
@@ -17282,6 +17484,7 @@ export namespace Prisma {
     receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
     payments?: PaymentCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    proposedMatches?: MatchCreateNestedManyWithoutProposerInput
   }
 
   export type UserUncheckedCreateWithoutPackagesInput = {
@@ -17306,6 +17509,7 @@ export namespace Prisma {
     receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
     payments?: PaymentUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    proposedMatches?: MatchUncheckedCreateNestedManyWithoutProposerInput
   }
 
   export type UserCreateOrConnectWithoutPackagesInput = {
@@ -17316,11 +17520,11 @@ export namespace Prisma {
   export type MatchCreateWithoutPackageInput = {
     id?: string
     status?: $Enums.MatchStatus
-    proposedByUserId?: string | null
     price?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     ride: RideCreateNestedOneWithoutMatchesInput
+    proposer?: UserCreateNestedOneWithoutProposedMatchesInput
     payment?: PaymentCreateNestedOneWithoutMatchInput
   }
 
@@ -17378,6 +17582,7 @@ export namespace Prisma {
     receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
     payments?: PaymentUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    proposedMatches?: MatchUpdateManyWithoutProposerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPackagesInput = {
@@ -17402,6 +17607,7 @@ export namespace Prisma {
     receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    proposedMatches?: MatchUncheckedUpdateManyWithoutProposerNestedInput
   }
 
   export type MatchUpsertWithWhereUniqueWithoutPackageInput = {
@@ -17418,20 +17624,6 @@ export namespace Prisma {
   export type MatchUpdateManyWithWhereWithoutPackageInput = {
     where: MatchScalarWhereInput
     data: XOR<MatchUpdateManyMutationInput, MatchUncheckedUpdateManyWithoutPackageInput>
-  }
-
-  export type MatchScalarWhereInput = {
-    AND?: MatchScalarWhereInput | MatchScalarWhereInput[]
-    OR?: MatchScalarWhereInput[]
-    NOT?: MatchScalarWhereInput | MatchScalarWhereInput[]
-    id?: StringFilter<"Match"> | string
-    packageId?: StringFilter<"Match"> | string
-    rideId?: StringFilter<"Match"> | string
-    status?: EnumMatchStatusFilter<"Match"> | $Enums.MatchStatus
-    proposedByUserId?: StringNullableFilter<"Match"> | string | null
-    price?: FloatNullableFilter<"Match"> | number | null
-    createdAt?: DateTimeFilter<"Match"> | Date | string
-    updatedAt?: DateTimeFilter<"Match"> | Date | string
   }
 
   export type UserCreateWithoutRidesInput = {
@@ -17456,6 +17648,7 @@ export namespace Prisma {
     receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
     payments?: PaymentCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    proposedMatches?: MatchCreateNestedManyWithoutProposerInput
   }
 
   export type UserUncheckedCreateWithoutRidesInput = {
@@ -17480,6 +17673,7 @@ export namespace Prisma {
     receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
     payments?: PaymentUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    proposedMatches?: MatchUncheckedCreateNestedManyWithoutProposerInput
   }
 
   export type UserCreateOrConnectWithoutRidesInput = {
@@ -17490,11 +17684,11 @@ export namespace Prisma {
   export type MatchCreateWithoutRideInput = {
     id?: string
     status?: $Enums.MatchStatus
-    proposedByUserId?: string | null
     price?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     package: PackageCreateNestedOneWithoutMatchesInput
+    proposer?: UserCreateNestedOneWithoutProposedMatchesInput
     payment?: PaymentCreateNestedOneWithoutMatchInput
   }
 
@@ -17552,6 +17746,7 @@ export namespace Prisma {
     receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
     payments?: PaymentUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    proposedMatches?: MatchUpdateManyWithoutProposerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRidesInput = {
@@ -17576,6 +17771,7 @@ export namespace Prisma {
     receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    proposedMatches?: MatchUncheckedUpdateManyWithoutProposerNestedInput
   }
 
   export type MatchUpsertWithWhereUniqueWithoutRideInput = {
@@ -17690,6 +17886,61 @@ export namespace Prisma {
   export type RideCreateOrConnectWithoutMatchesInput = {
     where: RideWhereUniqueInput
     create: XOR<RideCreateWithoutMatchesInput, RideUncheckedCreateWithoutMatchesInput>
+  }
+
+  export type UserCreateWithoutProposedMatchesInput = {
+    id?: string
+    email: string
+    password?: string | null
+    name?: string | null
+    firstName?: string | null
+    lastName?: string | null
+    image?: string | null
+    phoneNumber?: string | null
+    address?: string | null
+    role?: $Enums.Role
+    isVerified?: boolean
+    emailVerified?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    packages?: PackageCreateNestedManyWithoutUserInput
+    rides?: RideCreateNestedManyWithoutUserInput
+    sentMessages?: MessageCreateNestedManyWithoutSenderInput
+    receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
+    payments?: PaymentCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutProposedMatchesInput = {
+    id?: string
+    email: string
+    password?: string | null
+    name?: string | null
+    firstName?: string | null
+    lastName?: string | null
+    image?: string | null
+    phoneNumber?: string | null
+    address?: string | null
+    role?: $Enums.Role
+    isVerified?: boolean
+    emailVerified?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    packages?: PackageUncheckedCreateNestedManyWithoutUserInput
+    rides?: RideUncheckedCreateNestedManyWithoutUserInput
+    sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
+    receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutProposedMatchesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutProposedMatchesInput, UserUncheckedCreateWithoutProposedMatchesInput>
   }
 
   export type PaymentCreateWithoutMatchInput = {
@@ -17833,6 +18084,67 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type UserUpsertWithoutProposedMatchesInput = {
+    update: XOR<UserUpdateWithoutProposedMatchesInput, UserUncheckedUpdateWithoutProposedMatchesInput>
+    create: XOR<UserCreateWithoutProposedMatchesInput, UserUncheckedCreateWithoutProposedMatchesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutProposedMatchesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutProposedMatchesInput, UserUncheckedUpdateWithoutProposedMatchesInput>
+  }
+
+  export type UserUpdateWithoutProposedMatchesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    packages?: PackageUpdateManyWithoutUserNestedInput
+    rides?: RideUpdateManyWithoutUserNestedInput
+    sentMessages?: MessageUpdateManyWithoutSenderNestedInput
+    receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
+    payments?: PaymentUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutProposedMatchesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    phoneNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    packages?: PackageUncheckedUpdateManyWithoutUserNestedInput
+    rides?: RideUncheckedUpdateManyWithoutUserNestedInput
+    sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
+    receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+  }
+
   export type PaymentUpsertWithoutMatchInput = {
     update: XOR<PaymentUpdateWithoutMatchInput, PaymentUncheckedUpdateWithoutMatchInput>
     create: XOR<PaymentCreateWithoutMatchInput, PaymentUncheckedCreateWithoutMatchInput>
@@ -17892,6 +18204,7 @@ export namespace Prisma {
     receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
     payments?: PaymentCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    proposedMatches?: MatchCreateNestedManyWithoutProposerInput
   }
 
   export type UserUncheckedCreateWithoutSentMessagesInput = {
@@ -17916,6 +18229,7 @@ export namespace Prisma {
     receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
     payments?: PaymentUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    proposedMatches?: MatchUncheckedCreateNestedManyWithoutProposerInput
   }
 
   export type UserCreateOrConnectWithoutSentMessagesInput = {
@@ -17945,6 +18259,7 @@ export namespace Prisma {
     sentMessages?: MessageCreateNestedManyWithoutSenderInput
     payments?: PaymentCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    proposedMatches?: MatchCreateNestedManyWithoutProposerInput
   }
 
   export type UserUncheckedCreateWithoutReceivedMessagesInput = {
@@ -17969,6 +18284,7 @@ export namespace Prisma {
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
     payments?: PaymentUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    proposedMatches?: MatchUncheckedCreateNestedManyWithoutProposerInput
   }
 
   export type UserCreateOrConnectWithoutReceivedMessagesInput = {
@@ -18009,6 +18325,7 @@ export namespace Prisma {
     receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
     payments?: PaymentUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    proposedMatches?: MatchUpdateManyWithoutProposerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSentMessagesInput = {
@@ -18033,6 +18350,7 @@ export namespace Prisma {
     receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    proposedMatches?: MatchUncheckedUpdateManyWithoutProposerNestedInput
   }
 
   export type UserUpsertWithoutReceivedMessagesInput = {
@@ -18068,6 +18386,7 @@ export namespace Prisma {
     sentMessages?: MessageUpdateManyWithoutSenderNestedInput
     payments?: PaymentUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    proposedMatches?: MatchUpdateManyWithoutProposerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReceivedMessagesInput = {
@@ -18092,6 +18411,7 @@ export namespace Prisma {
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    proposedMatches?: MatchUncheckedUpdateManyWithoutProposerNestedInput
   }
 
   export type UserCreateWithoutPaymentsInput = {
@@ -18116,6 +18436,7 @@ export namespace Prisma {
     sentMessages?: MessageCreateNestedManyWithoutSenderInput
     receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    proposedMatches?: MatchCreateNestedManyWithoutProposerInput
   }
 
   export type UserUncheckedCreateWithoutPaymentsInput = {
@@ -18140,6 +18461,7 @@ export namespace Prisma {
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
     receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    proposedMatches?: MatchUncheckedCreateNestedManyWithoutProposerInput
   }
 
   export type UserCreateOrConnectWithoutPaymentsInput = {
@@ -18150,12 +18472,12 @@ export namespace Prisma {
   export type MatchCreateWithoutPaymentInput = {
     id?: string
     status?: $Enums.MatchStatus
-    proposedByUserId?: string | null
     price?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
     package: PackageCreateNestedOneWithoutMatchesInput
     ride: RideCreateNestedOneWithoutMatchesInput
+    proposer?: UserCreateNestedOneWithoutProposedMatchesInput
   }
 
   export type MatchUncheckedCreateWithoutPaymentInput = {
@@ -18207,6 +18529,7 @@ export namespace Prisma {
     sentMessages?: MessageUpdateManyWithoutSenderNestedInput
     receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    proposedMatches?: MatchUpdateManyWithoutProposerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPaymentsInput = {
@@ -18231,6 +18554,7 @@ export namespace Prisma {
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
     receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    proposedMatches?: MatchUncheckedUpdateManyWithoutProposerNestedInput
   }
 
   export type MatchUpsertWithoutPaymentInput = {
@@ -18247,12 +18571,12 @@ export namespace Prisma {
   export type MatchUpdateWithoutPaymentInput = {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumMatchStatusFieldUpdateOperationsInput | $Enums.MatchStatus
-    proposedByUserId?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     package?: PackageUpdateOneRequiredWithoutMatchesNestedInput
     ride?: RideUpdateOneRequiredWithoutMatchesNestedInput
+    proposer?: UserUpdateOneWithoutProposedMatchesNestedInput
   }
 
   export type MatchUncheckedUpdateWithoutPaymentInput = {
@@ -18288,6 +18612,7 @@ export namespace Prisma {
     sentMessages?: MessageCreateNestedManyWithoutSenderInput
     receivedMessages?: MessageCreateNestedManyWithoutReceiverInput
     payments?: PaymentCreateNestedManyWithoutUserInput
+    proposedMatches?: MatchCreateNestedManyWithoutProposerInput
   }
 
   export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -18312,6 +18637,7 @@ export namespace Prisma {
     sentMessages?: MessageUncheckedCreateNestedManyWithoutSenderInput
     receivedMessages?: MessageUncheckedCreateNestedManyWithoutReceiverInput
     payments?: PaymentUncheckedCreateNestedManyWithoutUserInput
+    proposedMatches?: MatchUncheckedCreateNestedManyWithoutProposerInput
   }
 
   export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -18352,6 +18678,7 @@ export namespace Prisma {
     sentMessages?: MessageUpdateManyWithoutSenderNestedInput
     receivedMessages?: MessageUpdateManyWithoutReceiverNestedInput
     payments?: PaymentUpdateManyWithoutUserNestedInput
+    proposedMatches?: MatchUpdateManyWithoutProposerNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -18376,6 +18703,7 @@ export namespace Prisma {
     sentMessages?: MessageUncheckedUpdateManyWithoutSenderNestedInput
     receivedMessages?: MessageUncheckedUpdateManyWithoutReceiverNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutUserNestedInput
+    proposedMatches?: MatchUncheckedUpdateManyWithoutProposerNestedInput
   }
 
   export type AccountCreateManyUserInput = {
@@ -18479,6 +18807,16 @@ export namespace Prisma {
     message: string
     read?: boolean
     link?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MatchCreateManyProposerInput = {
+    id?: string
+    packageId: string
+    rideId: string
+    status?: $Enums.MatchStatus
+    price?: number | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -18802,6 +19140,38 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type MatchUpdateWithoutProposerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumMatchStatusFieldUpdateOperationsInput | $Enums.MatchStatus
+    price?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    package?: PackageUpdateOneRequiredWithoutMatchesNestedInput
+    ride?: RideUpdateOneRequiredWithoutMatchesNestedInput
+    payment?: PaymentUpdateOneWithoutMatchNestedInput
+  }
+
+  export type MatchUncheckedUpdateWithoutProposerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    packageId?: StringFieldUpdateOperationsInput | string
+    rideId?: StringFieldUpdateOperationsInput | string
+    status?: EnumMatchStatusFieldUpdateOperationsInput | $Enums.MatchStatus
+    price?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    payment?: PaymentUncheckedUpdateOneWithoutMatchNestedInput
+  }
+
+  export type MatchUncheckedUpdateManyWithoutProposerInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    packageId?: StringFieldUpdateOperationsInput | string
+    rideId?: StringFieldUpdateOperationsInput | string
+    status?: EnumMatchStatusFieldUpdateOperationsInput | $Enums.MatchStatus
+    price?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type MatchCreateManyPackageInput = {
     id?: string
     rideId: string
@@ -18815,11 +19185,11 @@ export namespace Prisma {
   export type MatchUpdateWithoutPackageInput = {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumMatchStatusFieldUpdateOperationsInput | $Enums.MatchStatus
-    proposedByUserId?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     ride?: RideUpdateOneRequiredWithoutMatchesNestedInput
+    proposer?: UserUpdateOneWithoutProposedMatchesNestedInput
     payment?: PaymentUpdateOneWithoutMatchNestedInput
   }
 
@@ -18857,11 +19227,11 @@ export namespace Prisma {
   export type MatchUpdateWithoutRideInput = {
     id?: StringFieldUpdateOperationsInput | string
     status?: EnumMatchStatusFieldUpdateOperationsInput | $Enums.MatchStatus
-    proposedByUserId?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     package?: PackageUpdateOneRequiredWithoutMatchesNestedInput
+    proposer?: UserUpdateOneWithoutProposedMatchesNestedInput
     payment?: PaymentUpdateOneWithoutMatchNestedInput
   }
 
