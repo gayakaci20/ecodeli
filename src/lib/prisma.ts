@@ -1,19 +1,36 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, Prisma } from '@prisma/client';
+import { withAccelerate } from '@prisma/extension-accelerate';
 
-// PrismaClient is attached to the `global` object in development to prevent
-// exhausting your database connection limit.
+// PrismaClient est attaché à l'objet `global` en développement
+// pour éviter d'épuiser votre limite de connexions à la base de données.
 // Learn more: https://pris.ly/d/help/next-js-best-practices
 
-let prisma: PrismaClient;
+// Options de connexion pour améliorer la stabilité
+const prismaClientOptions: Prisma.PrismaClientOptions = {
+  datasources: {
+    db: {
+      url: process.env.DATABASE_URL
+    }
+  },
+  log: process.env.NODE_ENV === 'development' 
+    ? ['query', 'error', 'warn'] as Prisma.LogLevel[]
+    : ['error'] as Prisma.LogLevel[]
+};
+
+let prisma: ReturnType<typeof createPrismaClient>;
+
+function createPrismaClient() {
+  return new PrismaClient(prismaClientOptions).$extends(withAccelerate());
+}
 
 if (process.env.NODE_ENV === 'production') {
-  prisma = new PrismaClient();
+  prisma = createPrismaClient();
 } else {
-  // In development, use a global variable to preserve the value across HMR
-  const globalForPrisma = global as unknown as { prisma?: PrismaClient };
+  // En développement, utiliser une variable globale pour préserver la valeur
+  const globalForPrisma = global as unknown as { prisma?: ReturnType<typeof createPrismaClient> };
   
   if (!globalForPrisma.prisma) {
-    globalForPrisma.prisma = new PrismaClient();
+    globalForPrisma.prisma = createPrismaClient();
   }
   
   prisma = globalForPrisma.prisma;
