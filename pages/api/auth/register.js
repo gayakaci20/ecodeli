@@ -1,7 +1,5 @@
-import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcrypt';
-
-const prisma = new PrismaClient();
+import { prisma } from '../../../src/lib/prisma';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -47,7 +45,5 @@ export default async function handler(req, res) {
   } catch (error) {
     console.error('Erreur lors de l\'inscription:', error);
     res.status(500).json({ message: 'Erreur interne du serveur lors de la création du compte.' });
-  } finally {
-    await prisma.$disconnect();
   }
 }

@@ -1,7 +1,7 @@
 // This is a simplified mock login endpoint for development
 import { generateToken } from '../../../lib/auth';
 import { COOKIE_MAX_AGE } from '../../../lib/auth-constants';
-import prisma from '../../../lib/prisma';
+import { prisma } from '../../../src/lib/prisma';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {

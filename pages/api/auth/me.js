@@ -2,10 +2,8 @@
  * API endpoint pour récupérer les informations de l'utilisateur connecté
  * Utilise le token JWT pour authentifier l'utilisateur
  */
-import { PrismaClient } from '@prisma/client';
+import { prisma } from '../../../src/lib/prisma';
 import { verifyToken } from '../../../lib/auth';
-
-const prisma = new PrismaClient();
 
 export default async function handler(req, res) {
   if (req.method !== 'GET') {
